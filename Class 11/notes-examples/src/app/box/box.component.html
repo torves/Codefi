@@ -1,0 +1,13 @@
+<div class="card mt-3 box" [ngClass]="{
+    emptyBox: isEmpty === true
+  }">
+  <p class="text-center">I am box number {{ boxNumber }}!</p>
+  <p>I am 
+    <span [ngStyle]="{
+      color: getColor()
+    }">
+      {{ isEmpty ? "empty" : "full" }}.
+    </span>
+  </p>
+</div>
+
