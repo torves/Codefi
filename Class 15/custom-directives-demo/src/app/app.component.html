@@ -1,0 +1,39 @@
+<button (click)="showIncome = !showIncome">Toggle Show Income</button>
+
+<div *ngIf="showIncome">
+  <li
+    class="list-group-item"
+    [ngClass]="{ income: showIncome }"
+    *ngFor="let income of incomeList"
+    appOptimalBorder
+    [defaultBorder]="'4px solid purple'"
+    [customBorder]="'4px solid aqua'"
+  >
+    +{{ income }}
+  </li>
+</div>
+
+<div *ngIf="!showIncome">
+  <li
+    class="list-group-item"
+    *ngFor="let expense of expenseList"
+    [ngClass]="{ expense: !showIncome }"
+    appOptimalBorder
+    [defaultBorder]="'4px solid orange'"
+    [customBorder]="'4px solid brown'"
+  >
+    -{{ expense }}
+  </li>
+</div>
+
+<div>
+  Expense report: {{ expenseReport() }}
+</div>
+
+<div [ngSwitch]="fundraisingGoal">
+  <p *ngSwitchCase="1000">We want to raise $1,000</p>
+  <p *ngSwitchCase="100000">We will raise over $100,000!</p>
+  <p *ngSwitchCase="1000000">I must raise $1,000,000 to live another day.</p>
+  <p *ngSwitchDefault>We are trying to raise some money.</p>
+</div>
+

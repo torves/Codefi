@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'book-app';
+  pageDisplayed = 'bookshelf'
+
+  onNavigatePage(page: string) {
+    this.pageDisplayed = page
+  }
 }

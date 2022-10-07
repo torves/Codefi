@@ -1,0 +1,14 @@
+.income,
+.expense {
+  margin: 8px;
+}
+
+.income {
+  background-color: darkgreen;
+  color: white;
+}
+
+.expense {
+  background-color: crimson;
+  color: white;
+}

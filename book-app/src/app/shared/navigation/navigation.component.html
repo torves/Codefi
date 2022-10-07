@@ -1,0 +1,31 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg mb-4">
+  <a class="navbar-brand brand" id="brand" href="#">BookIt</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
+    aria-label="Toggle navigation" aria-controls="navbarToggler" aria-expanded="false" (click)="collapsed = !collapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarToggler" [class.collapse]="collapsed"
+    (window:resize)="collapsed = true">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="onSelectPage('bookshelf')">Bookshelf</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="onSelectPage('library')">Library</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+          aria-haspopup="true" [attr.aria-expanded]="show" (click)="show = !show" [class.show]="show">
+          Settings
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" [class.show]="show">
+          <a class="dropdown-item" href="#">Save Data</a>
+          <a class="dropdown-item" href="#">Fetch Data</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
