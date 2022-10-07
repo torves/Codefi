@@ -1,7 +1,10 @@
 <div class="row mb-3">
-  <div class="col-md-12">
-    <app-book></app-book>
-    <app-book></app-book>
-    <app-book></app-book>
+  <div class="col-md-9" *ngFor="let bookEl of allBooks">
+    <app-book [book]="bookEl"></app-book>
+    <button
+      class="float-right"
+      style="border: none; font-size: 16px"
+      (click)="onSaveBook(bookEl)"
+    >&plus;</button>
   </div>
 </div>
