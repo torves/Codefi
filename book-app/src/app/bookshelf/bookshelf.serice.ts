@@ -40,6 +40,10 @@ export class BookshelfService {
     return this.myBooks.slice()
   }
 
+  getBook(idx: number) {
+    return this.getBooks()[idx]
+  }
+
   // Update TODO
 
   // Delete

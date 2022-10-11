@@ -3,11 +3,15 @@
     class="col-md-12" 
     *ngFor="let bookEl of myBooks; let i = index"
   >
-    <app-book [book]="bookEl"></app-book>
+    <app-book [book]="bookEl" [idx]="i"></app-book>
+
+    <button class="btn btn-primary" (click)="onNewBook()">Add New Book</button>
+
     <button
       class="float-right"
       style="border: none; font-size: 16px;"
       (click)="onRemoveBook(i)"
     >&minus;</button>
+
   </div>
 </div>
