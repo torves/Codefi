@@ -24,9 +24,9 @@ export class BookListComponent implements OnInit {
     this.bookshelfService.bookListChanged.subscribe((books: Book[]) => this.myBooks = books)
   }
 
-  // handleBookSelected(book: Book) {
-  //   this.currentSelectedBook.emit(book)
-  // }
+  onBookSelected(i: number) {
+    this.bookshelfService.bookSelected.next(this.myBooks[i])
+  }
 
   onRemoveBook(idx: number) {
     this.bookshelfService.removeBook(idx)

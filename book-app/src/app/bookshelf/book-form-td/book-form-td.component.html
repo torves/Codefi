@@ -1,0 +1,36 @@
+<form (submit)="onFormSubmit(templateFormRef)" #templateFormRef="ngForm">
+  <div id="book-data">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" class="form-control" ngModel required #titleRef="ngModel">
+      <span class="help-block text-danger" *ngIf="!titleRef.valid && titleRef.touched">Please enter a valid title!</span>
+    </div>
+
+    <div class="form-group">
+      <label for="author">Author</label>
+      <input type="text" id="author" name="author" class="form-control" ngModel required #authorRef="ngModel">
+      <span class="help-block text-danger" *ngIf="!authorRef.valid && authorRef.touched">Please enter a valid email!</span>
+    </div>
+
+    <div class="form-group">
+      <label for="genre">Genre</label>
+      <select name="genre" id="genre" class="form-control" ngModel required #genreRef="ngModel" [ngModel]="'mystery'">
+        <option value="mystery">Mystery</option>
+        <option value="self-help">Self-Help</option>
+        <option value="fantasy">Fantasy</option>
+        <option value="science-fiction">Science Fiction</option>
+      </select>
+      <span class="help-block text-danger" *ngIf="!genreRef.valid && genreRef.touched">Please enter a valid genre!</span>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!templateFormRef.valid">Submit {{titleRef.value}}</button>
+  </div>
+</form>
+
+<div class="row mt-4" *ngIf="hasFormBeenSubmitted">
+  <div class="col-xs-12">
+    <h3>Title: {{ bookDetails.title }}</h3>
+    <h4>Author: {{ bookDetails.author }}</h4>
+    <p>Genre: {{ bookDetails.genre }}</p>
+  </div>
+</div>

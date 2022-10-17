@@ -16,9 +16,7 @@ export class BookDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private bookshelfService: BookshelfService,
     private router: Router,
-  ) {
-    console.log("Hello")
-   }
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
