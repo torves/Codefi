@@ -9,7 +9,7 @@ import { LibraryService } from '../library.service';
   styleUrls: ['./book-results.component.css']
 })
 export class BookResultsComponent implements OnInit {
-  allBooks: Book[] = [];
+  bookResults: Book[] = [];
 
   constructor(
     private libraryService: LibraryService,
@@ -17,7 +17,10 @@ export class BookResultsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.allBooks = this.libraryService.getBooks();
+    this.bookResults = this.libraryService.getBooks();
+    this.libraryService.bookListChanged.subscribe((books) => {
+      this.bookResults = books;
+    })
   }
 
   onSaveBook(book: Book) {

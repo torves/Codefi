@@ -30,6 +30,12 @@ export class BookshelfService {
   bookSelected = new Subject<Book>();
   bookListChanged = new Subject<Book[]>();
 
+  setBooks(books: Book[]) {
+    console.log({books})
+    this.myBooks = books;
+    this.bookListChanged.next(this.getBooks())
+  }
+
   // Create
   saveBook(book: Book) {
     this.myBooks.push(book)

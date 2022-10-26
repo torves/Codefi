@@ -1,15 +1,33 @@
 <a
-  style="cursor: pointer;"
+  style="cursor: pointer"
   class="list-group-item clearfix"
   [routerLink]="[idx]"
   routerLinkActive="active"
 >
   <div class="float-left">
     <h4 class="list-group-item-heading">{{ book.title }}</h4>
-    <p class="list-group-item-text mb-0">{{ book.genre }}</p>
+
+    <p class="list-group-item-text mb-0" *ngIf="book.genre !== ''">
+      {{ book.genre }}
+    </p>
+    <p class="list-group-item-text mb-0">{{ book.author }}</p>
+    <p
+      class="list-group-item-text mb-0"
+      *ngIf="book.price !== undefined && book.price > 0"
+    >
+      {{ book.price | currency }}
+    </p>
+    <p class="list-group-item-text mb-0" *ngIf="book.firstPublishYear">
+      {{ book.firstPublishYear }}
+    </p>
   </div>
 
-  <div class="float-right">
-    <img src="{{ book.coverImagePath }}" alt="{{ book.title }}" class="img-responsive rounded" style="max-height: 50px">
+  <div class="float-right" *ngIf="book.coverImagePath !== ''">
+    <img
+      src="{{ book.coverImagePath }}"
+      alt="{{ book.title }}"
+      class="img-responsive rounded"
+      style="max-height: 50px"
+    />
   </div>
 </a>

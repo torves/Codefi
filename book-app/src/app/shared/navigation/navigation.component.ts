@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { HttpService } from '../http.service';
 
 @Component({
   selector: 'app-navigation',
@@ -9,8 +10,18 @@ export class NavigationComponent implements OnInit {
   collapsed = true; // used to show/hide the mobile responsive menu
   show = true; // used to show/hide the settings dropdown menu
 
-  constructor() { }
+  constructor(
+    private httpService: HttpService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  onSaveData() {
+    this.httpService.saveBooksToFirebase()
+  }
+
+  onFetchData() {
+    this.httpService.fetchBooksFromFirebase();
   }
 }
