@@ -1,4 +1,5 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
 import { HttpService } from '../http.service';
 
 @Component({
@@ -6,15 +7,24 @@ import { HttpService } from '../http.service';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit, OnDestroy {
   collapsed = true; // used to show/hide the mobile responsive menu
   show = true; // used to show/hide the settings dropdown menu
+  isAuthenticated = false;
 
   constructor(
-    private httpService: HttpService
+    private httpService: HttpService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
+    this.authService.currentUser.subscribe((user) => {
+      this.isAuthenticated = !!user;
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.authService.currentUser.unsubscribe();
   }
 
   onSaveData() {

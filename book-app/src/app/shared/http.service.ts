@@ -31,6 +31,4 @@ export class HttpService {
         this.bookshelf.setBooks(res as Book[])
       })
   }
-
-
 }
