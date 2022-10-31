@@ -18,8 +18,9 @@ import { BookshelfEditorComponent } from './bookshelf/bookshelf-editor/bookshelf
 import { NotificationComponent } from './shared/notification/notification.component';
 import { BookFormTdComponent } from './bookshelf/book-form-td/book-form-td.component';
 import { BookFormReactiveComponent } from './bookshelf/book-form-reactive/book-form-reactive.component';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthComponent } from './shared/auth/auth.component';
+import { AuthInterceptorService } from './shared/auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,13 @@ import { AuthComponent } from './shared/auth/auth.component';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

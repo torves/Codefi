@@ -14,7 +14,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   constructor(
     private httpService: HttpService,
-    private authService: AuthService,
+    public authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -33,5 +33,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   onFetchData() {
     this.httpService.fetchBooksFromFirebase();
+  }
+
+  onSignOut() {
+    this.authService.signout();
   }
 }

@@ -22,7 +22,7 @@
       </li>
 
       <li class="nav-item" *ngIf="isAuthenticated">
-        <a class="nav-link" routerLink="/auth" routerLinkActive="active">Sign Out</a>
+        <a class="nav-link" routerLink="/auth" routerLinkActive="active" (click)="this.onSignOut()">Sign Out</a>
       </li>
 
     </ul>

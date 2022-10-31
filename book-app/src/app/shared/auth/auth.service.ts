@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, tap } from 'rxjs';
 import { User } from './user.model';
 
@@ -26,6 +27,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
   ) { }
 
   signup(email: string, password: string) {
@@ -65,5 +67,10 @@ export class AuthService {
 
     // serialize user
     localStorage.setItem("userData", JSON.stringify(formUser));
+  }
+
+  signout() {
+    this.currentUser.next(null);
+    this.router.navigate(['auth']);
   }
 }
