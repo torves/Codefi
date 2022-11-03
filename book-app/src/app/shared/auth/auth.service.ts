@@ -3,6 +3,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, tap } from 'rxjs';
 import { User } from './user.model';
+import { environment } from 'src/environments/environment';
+
+export interface UserData {
+  email: string;
+  id: string;
+  _token: string;
+  _tokenExpirationDate: string;
+}
 
 export interface AuthResponseData {
   kind: string;
@@ -15,20 +23,32 @@ export interface AuthResponseData {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  apiKey = "AIzaSyB3BWlF1TFnn8Wj-2EvozR_FKTSW0JGyEM";
-  signupUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`;
-  loginUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`;
+  // apiKey = "AIzaSyB3BWlF1TFnn8Wj-2EvozR_FKTSW0JGyEM";
+  signupUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseApiKey}`;
+  loginUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseApiKey}`;
 
-  currentUser = new BehaviorSubject<User|null>(null);
-  userToken: string = "";
+  currentUser = new BehaviorSubject<User | null>(null);
+  userToken: string = '';
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-  ) { }
+  // FIXME: any type.
+  private tokenExpTimer: any;
+
+  constructor(private http: HttpClient, private router: Router) {}
+
+  autoSignIn() {
+    const userData = JSON.parse(localStorage.getItem(environment.userDataLocalStorageKey) ?? '');
+    if (!userData) return;
+
+    const { email, id, _token, _tokenExpirationDate }: UserData = userData;
+    const loadedUser = new User(email, id, _token, new Date(_tokenExpirationDate));
+
+    if (loadedUser.token) {
+      this.currentUser.next(loadedUser);
+    }
+  }
 
   signup(email: string, password: string) {
     return this.http
@@ -61,16 +81,19 @@ export class AuthService {
   }
 
   handleAuth(email: string, userId: string, token: string, expiresIn: number) {
-    const expDate = new Date(new Date().getTime(), + expiresIn * 1000);
-    const formUser = new User(email, userId, token, expDate)
+    const expDate = new Date(new Date().getTime(), +expiresIn * 1000);
+    const formUser = new User(email, userId, token, expDate);
     this.currentUser.next(formUser);
 
     // serialize user
-    localStorage.setItem("userData", JSON.stringify(formUser));
+    localStorage.setItem(environment.userDataLocalStorageKey, JSON.stringify(formUser));
   }
 
   signout() {
     this.currentUser.next(null);
+
+    localStorage.removeItem(environment.userDataLocalStorageKey);
+
     this.router.navigate(['auth']);
   }
 }
