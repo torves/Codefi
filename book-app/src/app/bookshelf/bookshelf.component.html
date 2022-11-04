@@ -1,10 +1,10 @@
+<ng-template appPlaceholder></ng-template>
 <div class="row justify-between">
   <div class="col-md-6">
     <h1>My Saved Books</h1>
     <app-book-list></app-book-list>
   </div>
   <div class="col-md-6">
-
     <!-- <app-book-details
       *ngIf="selectedBook; else infoText"
       [book]="selectedBook"
@@ -14,8 +14,13 @@
     </ng-template> -->
 
     <router-outlet></router-outlet>
-
   </div>
 </div>
 
-<app-notification></app-notification>
+<!-- <app-notification></app-notification> -->
+
+<!-- <app-alert
+  [alertMsg]="'testing alert'"
+  *ngIf="true"
+  (closeModal)="handleCloseModal()"
+></app-alert> -->

@@ -39,16 +39,32 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   autoSignIn() {
+    console.log("Auto Sign In");
+
     const userData = JSON.parse(localStorage.getItem(environment.userDataLocalStorageKey) ?? '');
+
+    console.log({userData})
+
     if (!userData) return;
 
     const { email, id, _token, _tokenExpirationDate }: UserData = userData;
     const loadedUser = new User(email, id, _token, new Date(_tokenExpirationDate));
 
+    console.log({loadedUser});
+
     if (loadedUser.token) {
+      // NOTE: There may be no subscribers to the currentUser observable causing us to not be auto-signin.
+      console.log("Emitting current user");
       this.currentUser.next(loadedUser);
     }
   }
+
+
+  autoSignOut(expDuration: number) {
+    console.log("Expiration Duration: ", expDuration);
+    this.tokenExpTimer = setTimeout(this.signout, expDuration)
+  }
+
 
   signup(email: string, password: string) {
     return this.http
@@ -81,18 +97,23 @@ export class AuthService {
   }
 
   handleAuth(email: string, userId: string, token: string, expiresIn: number) {
-    const expDate = new Date(new Date().getTime(), +expiresIn * 1000);
+    const expDate = new Date(new Date().getTime() + expiresIn * 1000);
+
+    console.log("Expeiration Date from Auth:", expDate);
+
     const formUser = new User(email, userId, token, expDate);
     this.currentUser.next(formUser);
 
     // serialize user
     localStorage.setItem(environment.userDataLocalStorageKey, JSON.stringify(formUser));
+    this.autoSignOut(expiresIn * 1000);
   }
 
   signout() {
     this.currentUser.next(null);
 
     localStorage.removeItem(environment.userDataLocalStorageKey);
+    if (this.tokenExpTimer) clearTimeout(this.tokenExpTimer)
 
     this.router.navigate(['auth']);
   }

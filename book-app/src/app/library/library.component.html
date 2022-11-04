@@ -11,4 +11,11 @@
     <app-book-results></app-book-results>
   </div>
 </div>
-<app-notification></app-notification>
+
+<!-- <app-notification></app-notification> -->
+
+<app-alert
+  [alertMsg]="alert"
+  *ngIf="alert"
+  (closeModal)="handleCloseModal()"
+></app-alert>

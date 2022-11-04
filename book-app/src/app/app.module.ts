@@ -21,6 +21,8 @@ import { BookFormReactiveComponent } from './bookshelf/book-form-reactive/book-f
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthComponent } from './shared/auth/auth.component';
 import { AuthInterceptorService } from './shared/auth/auth-interceptor.service';
+import { AlertComponent } from './shared/alert/alert.component';
+import { PlaceholderDirective } from './shared/directives/placeholder.directive';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { AuthInterceptorService } from './shared/auth/auth-interceptor.service';
     NotificationComponent,
     BookFormTdComponent,
     BookFormReactiveComponent,
-    AuthComponent
+    AuthComponent,
+    AlertComponent,
+    PlaceholderDirective
   ],
   imports: [
     BrowserModule,

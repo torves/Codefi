@@ -8,8 +8,10 @@ export class User {
 
   public get token(): string {
     // Validation to ensure we have a expDate and it is not past the current date
-    if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate)
+    if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
+      console.log("Token Experiation Date:", this._tokenExpirationDate);
       return "";
+    }
 
     // Send the user's token
     return this._token;
