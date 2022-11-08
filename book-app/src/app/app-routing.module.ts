@@ -11,23 +11,11 @@ import { AuthGuard } from './shared/auth/auth.guard';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/bookshelf', pathMatch: 'full' },
-  // {
-  //   path: 'bookshelf',
-  //   component: BookshelfComponent,
-  //   canActivate: [AuthGuard],
-  //   children: [
-  //     { path: '', component: BookshelfHomeComponent },
-  //     { path: 'new', component: BookshelfEditorComponent },
-  //     { path: ':id', component: BookDetailsComponent },
-  //     { path: ':id/edit', component: BookshelfEditorComponent },
-  //   ],
-  // },
   {
     path: 'bookshelf',
     loadChildren: () =>
       import('./bookshelf/bookshelf.module').then((m) => m.BookshelfModule),
   },
-  // { path: 'library', component: LibraryComponent, canActivate: [AuthGuard] },
   {
     path: 'library',
     loadChildren: () =>

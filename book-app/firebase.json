@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/book-app",
+    "public": "./dist/book-app",
     "ignore": [
       "firebase.json",
       "**/.*",
